@@ -1,3 +1,9 @@
+'''
+what is it for:
+My boyfriend is going to submit an article to Nature, and he wonders how long it usually takes for Nature to accept the article.
+So I use Python crawler to crawl the data of more than 70 articles of Nature(in particular, the 'Article' type article in an issue), store it in excel and analyze the data.
+The final data can be viewed in the other file.
+'''
 import re
 import requests
 import time
@@ -9,7 +15,7 @@ receiveds = []
 accepteds = []
 urls = []
 
-for i in range(7721, 7742, 1):
+for i in range(7721, 7742, 1): # just the latest issues of Nature
     if i < 7725:
         url = "https://www.nature.com/nature/volumes/561/issues/"+str(i)
     elif i < 7729:
@@ -24,8 +30,8 @@ for i in range(7721, 7742, 1):
     response = requests.get(url=url, headers=headers)
     time.sleep(1)
     data = response.text
+    # for each issue, find all the 'Article' type article:
     article = re.findall(r'<span data-test=\"article\.type\">Article</span>\n                        \n                        \n                            <span class=\"pl6 pr6\"> \| </span>\n                            <time datetime=\"....-..-..\"\n                                  itemprop=\"datePublished\">.. .* 20..</time>\n                        \n                        \n                    </p>\n                    \n                    <h3 class=\"mb10 extra-tight-line-height\" itemprop=\"name headline\">\n                         <a href=\"(/articles/s.....-...-....-.)\"', data)
-
     print(article)
 
     for art in article:
@@ -44,4 +50,4 @@ for i in range(7721, 7742, 1):
         urls.append(url2)
 
 file = pd.DataFrame({'received time': receiveds, 'accepted time': accepteds, 'url': urls})
-file.to_csv('days between accepted time and received time of Nature Articles based on 104 sample.csv')
+file.to_csv('days between accepted time and received time of Nature Articles based on 74 samples.csv')
