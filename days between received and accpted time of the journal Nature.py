@@ -1,5 +1,5 @@
 '''
-what is it for:
+what it is for:
 My boyfriend is going to submit an article to Nature, and he wonders how long it usually takes for Nature to accept the article.
 So I use Python crawler to crawl the data of more than 70 articles of Nature(in particular, the 'Article' type article in an issue), store it in excel and analyze the data.
 The final data can be viewed in the other file.
